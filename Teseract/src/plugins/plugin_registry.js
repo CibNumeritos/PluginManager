@@ -7,4 +7,6 @@
  *     "EnhacedHomes"
  * ]
  */
-export const registered_plugins = [];
+export const registered_plugins = [
+    'example_plugin'
+];
