@@ -7,4 +7,6 @@
  *     "EnhacedHomes"
  * ]
  */
-const PLUGIN_REGISTRY = [];
+export const registered_plugins = [
+    'example_plugin'
+];
