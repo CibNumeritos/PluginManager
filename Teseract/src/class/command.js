@@ -10,13 +10,12 @@ export class Command {
 
             if (!message.startsWith(prefix)) return;
 
-            sendToTargets = false,
-                targets = [];
+            sendToTargets = false;
+            targets = [];
 
             const [typed_command, ...parameters] = message.slice(prefix.length).trim().split(/\s+/g);
-            const command = this.registered_commands.has(typed_command.substring(1));
 
-            if (!this.registered_commands.has(typed_command.substring(1)) || !sender.isStaff()) {
+            if (!this.registered_commands.has(typed_command.substring(1))) {
 
                 try {
 
@@ -24,12 +23,25 @@ export class Command {
 
                 } catch (error) {
 
-                    console.warn(`[DEBUG - COMMAND ERROR] ${error} : ${error.stack}`)
+                    warn(`Failed to execute ${typed_command} as ${sender.name} (unknown command).\n${error}: ${error.stack}`);
+
+                };
+
+            } else if (this.registered_commands.get(typed_command).permission > sender.getPermission()) {
+
+                try {
+
+                    sender.command.run(`tellraw @s {"rawtext":[{"text":"§c"},{"translate":"commands.generic.unknown", "with": ["${typed_command}"]}]}`);
+
+                } catch (error) {
+
+                    warn(`Failed to execute ${typed_command} as ${sender.name} (missing permission).\n${error}: ${error.stack}`);
 
                 };
 
             };
 
+            const command = this.registered_commands.get(typed_command.substring(1));
             const args = message.match(/(?<=\").*?(?=\")/g);
             const target = Array.from(world.getPlayers()).find(player => {
                 player.nameTag
@@ -41,6 +53,7 @@ export class Command {
             });
 
         });
+
     };
 
     registered_commands = new Map();
@@ -48,11 +61,28 @@ export class Command {
     register(name, description, aliases, permission, callback, parameters) {
 
         try {
-            
+
+            this.registered_commands.set(name,
+                {
+                    description: description,
+                    aliases: aliases,
+                    permission: permission,
+                    callback: callback,
+                    parameters: parameters
+                }
+            );
+
         } catch (error) {
-            
-        }
+
+            warn(`Failed to register ${name} command.\n${error} : ${error.stack}`)
+
+        };
 
     };
 
 };
+
+/**
+ * @remarks A class that wraps the custom chat commands registered using Teseract Wrapper.
+ */
+export const command = new Command;
