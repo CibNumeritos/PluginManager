@@ -1,5 +1,6 @@
 
 import { world } from "mojang-minecraft";
+import { log, warn } from '../content_logging/index';
 
 class CustomCommand { };
 

@@ -1,2 +1,2 @@
 
-import './deploy/deploy_e'
+import './deploy/teseract_deploy'

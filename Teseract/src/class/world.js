@@ -1,7 +1,7 @@
 
-import { World } from "mojang-minecraft";
+import { World, world } from "mojang-minecraft";
 import { command } from "./command";
-
+import { log, warn } from '../content_logging/index';
 World.prototype.registerCommand = function (name, description, aliases, permission, callback, parameters) {
     try {
 

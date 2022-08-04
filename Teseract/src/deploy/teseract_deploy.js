@@ -1,13 +1,14 @@
 
 import { registered_plugins } from "../plugins/plugin_registry";
+import { log, warn } from '../content_logging/index';
+import '../class/modification_load';
+/*
 
 const teseract_deploy_start = Date.now();
 
 log(`Teseract - allocated`);
 
-import('../class/modification_load.js')
-
-    .then(() => {
+import('../class/modification_load').then(() => {
 
         log(`Teseract - succesfully deployed class modifications in ${Date.now() - teseract_deploy_start} ms`);
 
@@ -46,3 +47,4 @@ import('../class/modification_load.js')
         );
 
     });
+*/

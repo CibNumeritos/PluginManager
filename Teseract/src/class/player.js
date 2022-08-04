@@ -1,5 +1,6 @@
 
 import { Location, Player, world } from "mojang-minecraft";
+import { log, warn } from '../content_logging/index';
 
 /**
  * @remarks Check if the player is alive.
@@ -77,6 +78,19 @@ Player.prototype.getDimensionID = function () {
     };
 
 };
+Player.prototype.test = function () {
+
+    try {
+
+        return this.runCommand(`say Hola`)
+
+    } catch (error) {
+
+        error(`Failed to get dimension id of ${this.name}.\n${error}`);
+
+    };
+
+};
 
 /**
  * @remarks Check if this player has the specified item.
@@ -121,27 +135,27 @@ Player.prototype.betweenLocations = function (locationA, locationB, locationC) {
 
 };
 
-/**
- * @remarks
- */
-Player.prototype.getPermission() = function () { };
+// /**
+//  * @remarks
+//  */
+// Player.prototype.getPermission() = function () { };
 
-/**
- * @remarks
- */
-Player.prototype.isStaff() = function () { };
+// /**
+//  * @remarks
+//  */
+// Player.prototype.isStaff() = function () { };
 
-/**
- * @remarks Represents the version 4 universal unique identifier regarding this player.
- */
-Player.prototype.uuid = null;
+// /**
+//  * @remarks Represents the version 4 universal unique identifier regarding this player.
+//  */
+// Player.prototype.uuid = null;
 
-/**
- * @remarks Represents the current rank this player has.
- */
-Player.prototype.rank = null;
+// /**
+//  * @remarks Represents the current rank this player has.
+//  */
+// Player.prototype.rank = null;
 
-p
+// p
 
-// UUID and rank definition
-world.events.playerJoin.subscribe(({ player }) => { });
+// // UUID and rank definition
+// world.events.playerJoin.subscribe(({ player }) => { });
