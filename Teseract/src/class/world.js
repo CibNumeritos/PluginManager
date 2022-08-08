@@ -1,16 +1,17 @@
 
-import { World, world } from "mojang-minecraft";
-import { command } from "./command";
-import { log, warn } from '../content_logging/index';
-World.prototype.registerCommand = function (name, description, aliases, permission, callback, parameters) {
-    try {
+import { World, Events, world } from "mojang-minecraft";
+// import { command } from "./command";
+import { log, warn, error } from '../content_logging/index';
 
-        command.register(name, description, aliases, permission, callback, parameters)
+// World.prototype.registerCommand = function (name, description, aliases, permission, callback, parameters) {
+//     try {
 
-    } catch (error) {
+//         command.register(name, description, aliases, permission, callback, parameters)
 
-    };
-};
+//     } catch (error) {
+
+//     };
+// };
 
 World.prototype.getScore = function () { };
 
@@ -39,7 +40,7 @@ World.prototype.setTimeout = function (callback, tick) {
 
         } catch (error) {
 
-            console.warn(`${error} : ${error.stack}`);
+
 
         };
 
@@ -72,7 +73,7 @@ World.prototype.setInterval = function (callback, tick) {
 
         } catch (error) {
 
-            console.warn(`${error} : ${error.stack}`);
+            warn(`${error} : ${error.stack}`);
 
         };
 

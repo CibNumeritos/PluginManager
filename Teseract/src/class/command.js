@@ -1,6 +1,6 @@
 
 import { world } from "mojang-minecraft";
-import { log, warn } from '../content_logging/index';
+import { log, warn, error } from '../content_logging/index';
 
 class CustomCommand { };
 
@@ -24,7 +24,7 @@ export class Command {
 
                 } catch (error) {
 
-                    warn(`Failed to execute ${typed_command} as ${sender.name} (unknown command).\n${error}: ${error.stack}`);
+                    error(`Failed to execute ${typed_command} as ${sender.name} (unknown command).\n${error}: ${error.stack}`);
 
                 };
 
@@ -36,7 +36,7 @@ export class Command {
 
                 } catch (error) {
 
-                    warn(`Failed to execute ${typed_command} as ${sender.name} (missing permission).\n${error}: ${error.stack}`);
+                    error(`Failed to execute ${typed_command} as ${sender.name} (missing permission).\n${error}: ${error.stack}`);
 
                 };
 
@@ -75,7 +75,7 @@ export class Command {
 
         } catch (error) {
 
-            warn(`Failed to register ${name} command.\n${error} : ${error.stack}`)
+            error(`Failed to register ${name} command.\n${error} : ${error.stack}`)
 
         };
 

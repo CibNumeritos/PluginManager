@@ -1,6 +1,6 @@
 
 import { Location, Player, world } from "mojang-minecraft";
-import { log, warn } from '../content_logging/index';
+import { log, warn, error } from '../content_logging/index';
 
 /**
  * @remarks Check if the player is alive.
@@ -12,7 +12,7 @@ Player.prototype.isAlive = function () {
     try {
 
         return (
-            this.getComponent("minecraft:health").current <= 0
+            !this.getComponent("minecraft:health").current <= 0
         );
 
     } catch (error) {
@@ -78,19 +78,6 @@ Player.prototype.getDimensionID = function () {
     };
 
 };
-Player.prototype.test = function () {
-
-    try {
-
-        return this.runCommand(`say Hola`)
-
-    } catch (error) {
-
-        error(`Failed to get dimension id of ${this.name}.\n${error}`);
-
-    };
-
-};
 
 /**
  * @remarks Check if this player has the specified item.
@@ -135,6 +122,8 @@ Player.prototype.betweenLocations = function (locationA, locationB, locationC) {
 
 };
 
+Player.prototype.health = 20;
+
 // /**
 //  * @remarks
 //  */
@@ -159,3 +148,12 @@ Player.prototype.betweenLocations = function (locationA, locationB, locationC) {
 
 // // UUID and rank definition
 // world.events.playerJoin.subscribe(({ player }) => { });
+world.events.tick.subscribe(() => {
+
+    for (const p of world.getPlayers()) {
+
+        p.health = p.getComponent('health').current;
+
+    };
+
+});
