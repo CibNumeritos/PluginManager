@@ -81,8 +81,34 @@ Player.prototype.getDimensionID = function () {
 
 /**
  * @remarks Check if this player has the specified item.
+ * @param {string} item Item identifier (e.g: minecraft:stick)
+ * @param {string} location Inventory slot location
+ * @param {number} slot Slot. 
+ * @param {number} data Item's data, should be an integer.
  */
-Player.prototype.hasItem = function () {};
+Player.prototype.hasItem = function (item, location, slot, data = 0) {
+
+    try {
+
+        if (!Number.isInteger(data)) {
+            throw Error(`Data value should be an integer number.`);
+        };
+
+        let command = this.runCommand(`testfor @s[hasitem={location=${location},slot=${slot},data=${data},item=${item}}]`);
+
+        if (command) {
+
+            return ;
+
+        };
+
+    } catch (error) {
+
+        error(``)
+
+    };
+
+};
 
 /**
  * @remarks Compare if a location is between two locations. 
@@ -122,7 +148,19 @@ Player.prototype.betweenLocations = function (locationA, locationB, locationC) {
 
 };
 
-Player.prototype.health = 20;
+Player.prototype.getHealth = function () {
+
+    try {
+
+        return this.getComponent('health').current;
+
+    } catch (error) {
+
+        error(`Failed to get ${this.name}'s health value.`);
+
+    };
+
+};
 
 // /**
 //  * @remarks
@@ -148,12 +186,3 @@ Player.prototype.health = 20;
 
 // // UUID and rank definition
 // world.events.playerJoin.subscribe(({ player }) => { });
-world.events.tick.subscribe(() => {
-
-    for (const p of world.getPlayers()) {
-
-        p.health = p.getComponent('health').current;
-
-    };
-
-});

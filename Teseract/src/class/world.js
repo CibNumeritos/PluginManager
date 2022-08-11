@@ -1,17 +1,17 @@
 
 import { World, Events, world } from "mojang-minecraft";
-// import { command } from "./command";
+import { command } from "./command";
 import { log, warn, error } from '../content_logging/index';
 
-// World.prototype.registerCommand = function (name, description, aliases, permission, callback, parameters) {
-//     try {
+World.prototype.registerCommand = function (name, description, aliases, permission, callback, parameters) {
+    try {
 
-//         command.register(name, description, aliases, permission, callback, parameters)
+        command.register(name, description, aliases, permission, callback, parameters)
 
-//     } catch (error) {
+    } catch (error) {
 
-//     };
-// };
+    };
+};
 
 World.prototype.getScore = function () { };
 
